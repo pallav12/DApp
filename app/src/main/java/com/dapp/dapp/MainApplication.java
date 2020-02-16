@@ -1,12 +1,16 @@
 package com.dapp.dapp;
 
 import android.app.Application;
-import android.content.Intent;
 
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.dapp.dapp.blockHelper.BlockChain;
+import com.dapp.dapp.helper.PrefManager;
 
 public class MainApplication extends Application {
     public static Application instance;
+    public static MutableLiveData<String> currentHash;
+    public static BlockChain blockChain;
     public static Application getInstance(){
         if(instance!=null){
             return instance;
@@ -19,6 +23,9 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         instance=this;
+        currentHash=new MutableLiveData<>();
+        blockChain=new BlockChain();
         super.onCreate();
+
     }
 }

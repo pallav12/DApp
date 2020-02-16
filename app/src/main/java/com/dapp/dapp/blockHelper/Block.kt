@@ -1,8 +1,11 @@
 package com.dapp.dapp.blockHelper
 
-data class Block(
+import androidx.annotation.Nullable
+
+data class Block constructor(
     val previousHash: String,
-    val currentHash: String,
-    val message: String
+    @Nullable var currentHash: String?,
+    val message: String,
+    val from: String
 )
 

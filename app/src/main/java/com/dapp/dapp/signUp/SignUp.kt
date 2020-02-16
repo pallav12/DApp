@@ -47,6 +47,8 @@ class SignUp : Fragment() {
                     GroupListFragment.newInstance()
                 )
             }
+            PrefManager.saveBoolean("sign_up",true)
+
         })
     }
 
