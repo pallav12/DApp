@@ -29,7 +29,6 @@ class ListRepository {
                 }
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
-        MainApplication.currentHash.value=block.currentHash
         PrefManager.saveString("hash",block.currentHash as String)
     }
 }
