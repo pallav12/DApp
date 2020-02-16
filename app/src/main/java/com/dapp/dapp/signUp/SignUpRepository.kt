@@ -6,7 +6,6 @@ import androidx.annotation.NonNull
 import androidx.lifecycle.MutableLiveData
 import com.dapp.dapp.MainApplication
 import com.dapp.dapp.blockHelper.Block
-import com.dapp.dapp.helper.HashCalculator
 import com.dapp.dapp.helper.PrefManager
 import com.google.firebase.database.FirebaseDatabase
 
@@ -16,9 +15,9 @@ class SignUpRepository(@NonNull val application: Application) {
     fun signUp(phone: String,block:Block,liveData:MutableLiveData<Boolean>) {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference(phone)
-        myRef.setValue(block.hashCode().toString()).addOnSuccessListener {
-            MainApplication.currentHash.value = block.hashCode().toString()
-            PrefManager.saveString("hash", block.hashCode().toString())
+        myRef.setValue(block.currentHash).addOnSuccessListener {
+            MainApplication.currentHash.value =block.currentHash
+            PrefManager.saveString("hash", block.currentHash as String)
             liveData.value = true
         }
             .addOnFailureListener {
@@ -29,7 +28,7 @@ class SignUpRepository(@NonNull val application: Application) {
                 ).show()
 
             }
-        MainApplication.currentHash.value = block.hashCode().toString()
+        MainApplication.currentHash.value = block.currentHash
         MainApplication.blockChain.addBlock(block)
         liveData.value=true
 

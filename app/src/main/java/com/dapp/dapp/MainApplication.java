@@ -24,6 +24,7 @@ public class MainApplication extends Application {
     public void onCreate() {
         instance=this;
         currentHash=new MutableLiveData<>();
+        currentHash.setValue(PrefManager.INSTANCE.getString("hash","false"));
         blockChain=new BlockChain();
         super.onCreate();
 
