@@ -1,17 +1,18 @@
 package com.dapp.dapp
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.dapp.dapp.helper.PrefManager
+import com.dapp.dapp.home.GroupListingActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +22,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Instantiate a ViewPager and a PagerAdapter.
+        if (!PrefManager.getBoolean("first_time", true)) {
+            val intent = Intent(this, GroupListingActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         mPager = findViewById(R.id.pager)
 
         // The pager adapter, which provides the pages to the view pager widget.
@@ -40,29 +46,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
     private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : PagerAdapter() {
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
             return view == `object`
-            //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun getCount(): Int {
-            return 5 //To change body of created functions use File | Settings | File Templates.
+            return 5
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = layoutInflater!!.inflate(R.layout.fragment_viewpager, container, false)
-            val textView: TextView = view.findViewById(R.id.tv_viewpager);
+            val view = layoutInflater.inflate(R.layout.fragment_viewpager, container, false)
+
+            val textView: TextView = view.findViewById(R.id.tv_viewpager)
+            if (position == 4) {
+                val intent = Intent(view.context, GroupListingActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
             textView.setText("" + position)
             container.addView(view)
             return view
-
-            return super.instantiateItem(container, position)
         }
 
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
