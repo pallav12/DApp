@@ -13,7 +13,7 @@ Single Block of DApp contains **previousHash**, **currentHash**, **Message(Yo)**
 -  Click on Green Yo button on bottom of fragment. If everything works fine your must be able to see a toast **Someone yoed you**
 -  Now below **3423225425 Click to reset** you can see every block of your blockChain, Notice the pattern in hashes.
 -  Now click on your Current hash ie **3423225425 Click to reset**, then manually enter your friend's hash.
--  Now you can Yo him/her all day long!!.
+-  Now you can Yo him/her all day long!.
 ## How to build
 open any terminal and type
 ~~~
